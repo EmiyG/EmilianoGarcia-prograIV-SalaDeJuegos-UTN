@@ -1,5 +1,56 @@
-<app-navbar></app-navbar>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+  <div class="container">
+
+    <a class="navbar-brand">
+      Sala de Juegos
+    </a>
+
+    <div class="navbar-nav">
+
+      <a
+        routerLink="/"
+        class="nav-link"
+      >
+        Home
+      </a>
+
+      <a
+        routerLink="/quien-soy"
+        class="nav-link"
+      >
+        Quién Soy
+      </a>
+
+      <a
+        routerLink="/login"
+        class="nav-link"
+      >
+        Login
+      </a>
+
+      <a
+        routerLink="/register"
+        class="nav-link"
+      >
+        Registro
+      </a>
+
+      <a
+        routerLink="/juegos"
+        class="nav-link"
+      >
+        Juegos
+      </a>
+
+    </div>
+
+  </div>
+
+</nav>
 
 <div class="container mt-4">
-  <router-outlet></router-outlet>
+
+  <router-outlet />
+
 </div>
