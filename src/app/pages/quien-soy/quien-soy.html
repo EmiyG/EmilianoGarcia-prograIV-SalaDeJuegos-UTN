@@ -1,0 +1,38 @@
+<div class="card shadow p-4">
+
+  <h2 class="mb-4">
+    Quién Soy
+  </h2>
+
+  @if(usuario){
+
+    <div class="text-center">
+
+      <img
+        [src]="usuario.avatar_url"
+        width="200"
+        class="rounded-circle mb-3"
+      >
+
+      <h3>{{ usuario.name }}</h3>
+
+      <p>{{ usuario.bio }}</p>
+
+      <p>
+        Seguidores:
+        {{ usuario.followers }}
+      </p>
+
+    </div>
+
+  }
+
+  <hr>
+
+  <h4>Juego Propio</h4>
+
+  <p>
+    Mi juego propio será un juego de reflejos y velocidad.
+  </p>
+
+</div>
