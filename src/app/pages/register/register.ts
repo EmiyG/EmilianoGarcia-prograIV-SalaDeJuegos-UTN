@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
+import { Router } from '@angular/router';
 import { Auth } from '../../services/auth';
 
 @Component({
@@ -12,6 +12,7 @@ import { Auth } from '../../services/auth';
 export class Register {
 
   authService = inject(Auth);
+  router = inject(Router);
 
   nombre = '';
   apellido = '';
@@ -48,6 +49,7 @@ export class Register {
       });
 
     alert('Usuario registrado');
+    this.router.navigateByUrl('/');
 
   }
 

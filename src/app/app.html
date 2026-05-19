@@ -22,26 +22,41 @@
         Quién Soy
       </a>
 
-      <a
-        routerLink="/login"
-        class="nav-link"
-      >
-        Login
-      </a>
+      @if(!usuario){
 
-      <a
-        routerLink="/register"
-        class="nav-link"
-      >
-        Registro
-      </a>
+        <a
+          routerLink="/login"
+          class="nav-link"
+        >
+          Login
+        </a>
 
-      <a
-        routerLink="/juegos"
-        class="nav-link"
-      >
-        Juegos
-      </a>
+        <a
+          routerLink="/register"
+          class="nav-link"
+        >
+          Registro
+        </a>
+
+      }
+
+      @if(usuario){
+
+        <a
+          routerLink="/juegos"
+          class="nav-link"
+        >
+          Juegos
+        </a>
+
+        <button
+          class="btn btn-danger ms-3"
+          (click)="logout()"
+        >
+          Logout
+        </button>
+
+      }
 
     </div>
 

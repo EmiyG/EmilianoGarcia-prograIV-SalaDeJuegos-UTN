@@ -1,17 +1,23 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import {
+  Component,
+  inject,
+  OnInit,
+  ChangeDetectorRef
+} from '@angular/core';
 
 import { Auth } from '../../services/auth';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink],
+  imports: [],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
 export class Home implements OnInit {
 
   authService = inject(Auth);
+
+  cdr = inject(ChangeDetectorRef);
 
   usuario: any = null;
 
@@ -22,13 +28,25 @@ export class Home implements OnInit {
 
     this.usuario = data.user;
 
+    this.cdr.detectChanges();
+
+    this.authService.supabase.auth.onAuthStateChange(
+
+      (event, session) => {
+
+        this.usuario = session?.user ?? null;
+
+        this.cdr.detectChanges();
+
+      }
+
+    );
+
   }
 
   async logout() {
 
     await this.authService.supabase.auth.signOut();
-
-    this.usuario = null;
 
   }
 
