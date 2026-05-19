@@ -60,10 +60,10 @@ export class Login {
 
   }
   
-  accesoRapido(usuario: any){
+  accesoRapido() {
 
-  this.email = usuario.email;
-  this.password = usuario.password;
+  this.email = 'eemilianogarcia1211@gmail.com';
+  this.password = '42334013';
 
 }
 
