@@ -10,17 +10,29 @@
           Iniciar Sesión
         </h2>
 
+        
+        <button
+          class="btn btn-secondary w-100 mb-3"
+          (click)="accesoRapido()">
+
+          Acceso rápido
+
+        </button>
+
+        
         <div class="mb-3">
           <label>Email</label>
-          <input type="email" class="form-control">
+          <input type="email" class="form-control" [(ngModel)]="email">
         </div>
 
+        
         <div class="mb-3">
           <label>Contraseña</label>
-          <input type="password" class="form-control">
+          <input type="password" class="form-control" [(ngModel)]="password">
         </div>
 
-        <button class="btn btn-primary w-100">
+        
+        <button class="btn btn-primary w-100" (click)="login()">
           Ingresar
         </button>
 
