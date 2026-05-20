@@ -1,5 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Github } from '../../services/github';
+import {
+  Component,
+  inject,
+  OnInit,
+  ChangeDetectorRef
+} from '@angular/core';
+
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-quien-soy',
@@ -9,16 +15,21 @@ import { Github } from '../../services/github';
 })
 export class QuienSoy implements OnInit {
 
-  githubService = inject(Github);
+  http = inject(HttpClient);
+
+  cdr = inject(ChangeDetectorRef);
 
   usuario: any;
 
-  ngOnInit(): void {
+  ngOnInit() {
 
-    this.githubService.obtenerUsuario('EmiyG')
-      .subscribe((data) => {
+    this.http
+      .get('https://api.github.com/users/EmiyG')
+      .subscribe(data => {
 
         this.usuario = data;
+
+        this.cdr.detectChanges();
 
       });
 

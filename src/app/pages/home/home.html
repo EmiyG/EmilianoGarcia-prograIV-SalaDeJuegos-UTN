@@ -4,24 +4,29 @@
     Sala de Juegos
   </h1>
 
-  <p class="lead">
-    Proyecto realizado en Angular para Programación IV.
-  </p>
+  @if(!usuario){
 
-  <div class="d-flex justify-content-center gap-3 mt-4">
+    <p class="lead">
+      Debes iniciar sesión para acceder a los juegos.
+    </p>
 
-    <a routerLink="/login" class="btn btn-primary">
-      Login
-    </a>
+  } @else {
 
-    <a routerLink="/register" class="btn btn-success">
-      Registro
-    </a>
+    <h3 class="mb-4">
+      Bienvenido {{ usuario.email }}
+    </h3>
 
-    <a routerLink="/quien-soy" class="btn btn-dark">
-      Quién Soy
-    </a>
+    <div class="d-flex justify-content-center gap-3">
 
-  </div>
+      <button
+        class="btn btn-danger"
+        (click)="logout()"
+      >
+        Cerrar sesión
+      </button>
+
+    </div>
+
+  }
 
 </div>
