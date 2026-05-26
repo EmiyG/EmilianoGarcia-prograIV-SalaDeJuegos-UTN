@@ -1,0 +1,52 @@
+<div class="container text-center mt-5">
+
+  <h1>Ahorcado</h1>
+
+  <h2 class="mt-4">
+
+    {{ mostrarPalabra() }}
+
+  </h2>
+
+  <h4 class="mt-3">
+
+    Errores: {{ errores }} / {{ maxErrores }}
+
+  </h4>
+
+  <div class="mt-4">
+
+    @for(letra of abecedario; track letra){
+
+      <button
+        class="btn btn-primary m-1"
+        (click)="seleccionarLetra(letra)"
+        [disabled]="letrasUsadas.includes(letra)">
+
+        {{ letra }}
+
+      </button>
+
+    }
+
+  </div>
+
+</div>
+
+@if(mostrarModal){
+
+<div class="modal-backdrop-custom">
+
+  <div class="modal-box">
+
+    <h2>{{ mensajeModal }}</h2>
+
+    <button (click)="cerrarModal()" class="btn btn-light mt-3">
+      Continuar
+    </button>
+
+  </div>
+
+</div>
+
+}

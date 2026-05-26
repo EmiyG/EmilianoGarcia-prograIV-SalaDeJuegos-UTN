@@ -1,0 +1,46 @@
+<div class="container mt-4">
+
+  <h1 class="text-center mb-4">
+    Chat Global
+  </h1>
+
+  <div class="border p-3 mb-3" style="height: 400px; overflow-y: auto;">
+
+    @for(mensaje of mensajes; track mensaje.id){
+
+      <div class="mb-2">
+
+        <strong>
+          {{ mensaje.usuario }}
+        </strong>
+
+        <br>
+
+        {{ mensaje.mensaje }}
+
+      </div>
+
+      <hr>
+
+    }
+
+  </div>
+
+  <div class="d-flex">
+
+    <input
+      type="text"
+      class="form-control me-2"
+      [(ngModel)]="nuevoMensaje">
+
+    <button
+      class="btn btn-primary"
+      (click)="enviarMensaje()">
+
+      Enviar
+
+    </button>
+
+  </div>
+
+</div>

@@ -1,0 +1,55 @@
+<div class="container text-center mt-5">
+
+  <h1>Mayor o Menor</h1>
+
+  <h2 class="mt-4">
+    Carta actual: {{ cartaActual }}
+  </h2>
+
+  <h3 class="mt-3">
+    Puntaje: {{ puntaje }}
+  </h3>
+
+  <div class="mt-4">
+
+    <button
+      class="btn btn-success me-3"
+      (click)="jugar('mayor')">
+
+      Mayor
+
+    </button>
+
+    <button
+      class="btn btn-danger"
+      (click)="jugar('menor')">
+
+      Menor
+
+    </button>
+
+  </div>
+
+</div>
+
+<div class="carta">
+
+  <div class="numero">
+    {{ cartaActual }}
+  </div>
+
+  <div class="palo">
+    {{ paloActual }}
+  </div>
+
+</div>
+
+<div *ngIf="mostrarModal" class="modal-backdrop-custom">
+
+  <div class="modal-box">
+
+    <h2>{{ mensajeModal }}</h2>
+
+  </div>
+
+</div>

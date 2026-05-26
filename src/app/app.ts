@@ -1,6 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
-
 import { Auth } from './services/auth';
 
 @Component({
@@ -15,6 +14,8 @@ export class App implements OnInit {
 
   usuario: any = null;
 
+  constructor(private cdr: ChangeDetectorRef) {}
+
   async ngOnInit() {
 
     const { data } =
@@ -22,11 +23,15 @@ export class App implements OnInit {
 
     this.usuario = data.user;
 
+    this.cdr.detectChanges();
+
     this.authService.supabase.auth.onAuthStateChange(
 
-      (event, session) => {
+      (event: any, session: any) => {
 
         this.usuario = session?.user ?? null;
+
+        this.cdr.detectChanges();
 
       }
 

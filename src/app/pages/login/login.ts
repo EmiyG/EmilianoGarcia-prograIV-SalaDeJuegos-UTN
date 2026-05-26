@@ -18,26 +18,45 @@ export class Login {
   email = '';
   password = '';
 
+  mensaje = '';
+  mostrarModal = false;
+
   usuariosRapidos = [
 
-  {
-    email: 'admin@test.com',
-    password: '123456'
-  },
+    {
+      email: 'admin@test.com',
+      password: '123456'
+    },
 
-  {
-    email: 'user1@test.com',
-    password: '123456'
-  },
+    {
+      email: 'user1@test.com',
+      password: '123456'
+    },
 
-  {
-    email: 'user2@test.com',
-    password: '123456'
+    {
+      email: 'user2@test.com',
+      password: '123456'
+    }
+
+  ];
+
+  abrirModal(texto: string){
+
+    this.mensaje = texto;
+
+    this.mostrarModal = true;
+
   }
 
-];
-
   async login() {
+
+    if(!this.email || !this.password){
+
+      this.abrirModal('Completa todos los campos');
+
+      return;
+
+    }
 
     const { data, error } =
       await this.authService.supabase.auth.signInWithPassword({
@@ -49,22 +68,28 @@ export class Login {
 
     if(error){
 
-      alert(error.message);
+      this.abrirModal('Email o contraseña incorrectos');
+
       return;
 
     }
 
-    alert('Login exitoso');
+    this.abrirModal('Login exitoso');
 
-    this.router.navigateByUrl('/');
+    setTimeout(() => {
+
+      this.router.navigateByUrl('/');
+
+    }, 1000);
 
   }
-  
-  accesoRapido() {
 
-  this.email = 'eemilianogarcia1211@gmail.com';
-  this.password = '42334013';
+  accesoRapido(usuario: any) {
 
-}
+    this.email = usuario.email;
+
+    this.password = usuario.password;
+
+  }
 
 }
