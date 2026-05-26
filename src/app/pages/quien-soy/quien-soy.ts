@@ -4,6 +4,7 @@ import {
   OnInit,
   ChangeDetectorRef
 } from '@angular/core';
+import { supabase } from '../../services/supabase';
 
 import { HttpClient } from '@angular/common/http';
 

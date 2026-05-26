@@ -1,3 +1,66 @@
 body{
-  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #0f172a, #111827, #1e293b);
+  min-height: 100vh;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.card-gamer{
+  background-color: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.btn-gamer{
+  background: #7c3aed;
+  border: none;
+  color: white;
+  transition: 0.3s;
+}
+
+.btn-gamer:hover{
+  transform: scale(1.05);
+  background: #6d28d9;
+}
+
+input{
+  background-color: #1e293b !important;
+  color: white !important;
+  border: 1px solid #334155 !important;
+}
+
+.card-gamer{
+  animation: aparecer 0.5s ease;
+}
+
+@keyframes aparecer{
+
+  from{
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+
+.btn-lg{
+
+  transition: 0.3s;
+
+}
+
+.btn-lg:hover{
+
+  transform: scale(1.03);
+
+  box-shadow: 0 0 20px rgba(255,255,255,0.3);
+
 }

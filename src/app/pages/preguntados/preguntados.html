@@ -1,0 +1,58 @@
+<div class="container text-center mt-5">
+
+  <h1 class="mb-3">Preguntados</h1>
+
+  <h3 class="mb-3">Puntaje: {{ puntaje }}</h3>
+
+  <hr>
+
+  @if(!gameOver){
+
+    @if(loading && !pregunta){
+      <div class="mt-5">
+        <div class="spinner-border text-primary" role="status"></div>
+        <p class="mt-2">Buscando pregunta...</p>
+      </div>
+    }
+
+    @if(pregunta && !loading){
+      <div class="pregunta-container animate-in">
+        <h4 class="mb-4">{{ pregunta.question }}</h4>
+
+        <div class="row justify-content-center">
+          @for(opcion of opciones; track opcion){
+            <div class="col-12 col-md-6">
+              <button class="btn btn-opcion w-100 m-2"
+                      (click)="verificarRespuesta(opcion)">
+                {{ opcion }}
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+  } @else {
+
+    <div class="game-over mt-4 p-5 shadow rounded bg-white">
+      <h2 class="text-danger">💀 Game Over</h2>
+      <p class="fs-4">Lograste {{ puntaje }} puntos</p>
+
+      <button class="btn btn-success btn-lg mt-3"
+              (click)="reiniciarJuego()">
+        Intentar de nuevo
+      </button>
+    </div>
+
+  }
+
+</div>
+
+@if(modalVisible){
+  <div class="modal-backdrop">
+    <div class="modal-box" [ngClass]="modalTipo">
+      <h2>{{ modalMensaje }}</h2>
+      <p>{{ modalSubtitulo }}</p>
+    </div>
+  </div>
+}

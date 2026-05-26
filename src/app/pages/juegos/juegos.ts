@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-juegos',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './juegos.html',
-  styleUrl: './juegos.css',
+  styleUrl: './juegos.css'
 })
-export class Juegos {}
+export class Juegos {
+
+}

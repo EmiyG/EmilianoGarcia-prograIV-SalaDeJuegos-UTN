@@ -1,39 +1,123 @@
-<div class="row justify-content-center">
+<div class="container mt-5">
 
-  <div class="col-md-5">
+  <div class="row justify-content-center">
 
-    <div class="card shadow">
+    <div class="col-md-5">
 
-      <div class="card-body">
+      <div class="card shadow-lg border-0 bg-dark text-white rounded-4">
 
-        <h2 class="mb-4 text-center">
-          Iniciar Sesión
-        </h2>
+        <div class="card-body p-4">
 
-        
+          <h2 class="mb-4 text-center fw-bold">
+            🎮 Iniciar Sesión
+          </h2>
+
+          
+          <div class="d-flex flex-column gap-2 mb-4">
+
+            <button
+              class="btn btn-danger"
+              (click)="accesoRapido(usuariosRapidos[0])">
+
+              Admin
+            </button>
+
+            <button
+              class="btn btn-primary"
+              (click)="accesoRapido(usuariosRapidos[1])">
+
+              Usuario 1
+            </button>
+
+            <button
+              class="btn btn-success"
+              (click)="accesoRapido(usuariosRapidos[2])">
+
+              Usuario 2
+            </button>
+
+          </div>
+
+          
+          <div class="mb-3">
+
+            <label class="form-label">
+              Email
+            </label>
+
+            <input
+              type="email"
+              class="form-control bg-secondary text-white border-0"
+              [(ngModel)]="email">
+
+          </div>
+
+          
+          <div class="mb-4">
+
+            <label class="form-label">
+              Contraseña
+            </label>
+
+            <input
+              type="password"
+              class="form-control bg-secondary text-white border-0"
+              [(ngModel)]="password">
+
+          </div>
+
+          
+          <button
+            class="btn btn-warning w-100 fw-bold"
+            (click)="login()">
+
+            Ingresar
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+@if(mostrarModal){
+
+<div class="modal d-block">
+
+  <div class="modal-dialog modal-dialog-centered">
+
+    <div class="modal-content bg-dark text-white border border-primary">
+
+      <div class="modal-header border-secondary">
+
+        <h5 class="modal-title">
+          🎮 Sala de Juegos
+        </h5>
+
+      </div>
+
+      <div class="modal-body text-center">
+
+        <p class="fs-5">
+          {{ mensaje }}
+        </p>
+
+      </div>
+
+      <div class="modal-footer border-secondary">
+
         <button
-          class="btn btn-secondary w-100 mb-3"
-          (click)="accesoRapido()">
+          class="btn btn-primary"
+          (click)="mostrarModal = false">
 
-          Acceso rápido
+          Cerrar
 
-        </button>
-
-        
-        <div class="mb-3">
-          <label>Email</label>
-          <input type="email" class="form-control" [(ngModel)]="email">
-        </div>
-
-        
-        <div class="mb-3">
-          <label>Contraseña</label>
-          <input type="password" class="form-control" [(ngModel)]="password">
-        </div>
-
-        
-        <button class="btn btn-primary w-100" (click)="login()">
-          Ingresar
         </button>
 
       </div>
@@ -43,3 +127,5 @@
   </div>
 
 </div>
+
+}
