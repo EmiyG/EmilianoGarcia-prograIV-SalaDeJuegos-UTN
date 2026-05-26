@@ -19,7 +19,7 @@ export class Preguntados implements OnInit {
   loading = false;
   gameOver = false;
 
-  // Control del Modal
+  
   modalVisible = false;
   modalMensaje = '';
   modalSubtitulo = '';
@@ -77,14 +77,14 @@ export class Preguntados implements OnInit {
       this.puntaje++;
       this.mostrarModal('¡Correcto! 🔥', 'Sumaste un punto', 'correcto');
       
-      // Limpiamos la pregunta actual y buscamos la siguiente de fondo
+     
       this.pregunta = null;
       this.obtenerPregunta();
     } else {
       this.gameOver = true;
       this.mostrarModal('Incorrecto 💀', `Era: ${this.pregunta.correct_answer}`, 'incorrecto');
       
-      // Guardamos el puntaje alcanzado antes de resetear
+      
       this.guardarResultado(this.puntaje);
     }
   }
@@ -97,7 +97,7 @@ export class Preguntados implements OnInit {
 
     setTimeout(() => {
       this.modalVisible = false;
-    }, 1200); // Un poco más de tiempo para que no sea tan brusco
+    }, 1200); 
   }
 
   async guardarResultado(puntajeFinal: number) {
