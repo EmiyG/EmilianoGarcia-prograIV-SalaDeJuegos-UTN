@@ -2,57 +2,63 @@
 
   <h1 class="mb-3">Preguntados</h1>
 
-  <h3 class="mb-3">Puntaje: {{ puntaje }}</h3>
+  @if(!empezado && !terminado){
 
-  <hr>
+    <div class="mt-5">
+      <p class="fs-5">Respondé 10 preguntas de geografía.</p>
+      <button class="btn btn-primary btn-lg" (click)="empezar()">
+        Comenzar
+      </button>
+    </div>
 
-  @if(!gameOver){
+  }
 
-    @if(loading && !pregunta){
-      <div class="mt-5">
-        <div class="spinner-border text-primary" role="status"></div>
-        <p class="mt-2">Buscando pregunta...</p>
+  @if(loading && empezado && !preguntaActual && !terminado){
+    <div class="mt-5">
+      <div class="spinner-border text-primary" role="status"></div>
+      <p class="mt-2">Preparando preguntas...</p>
+    </div>
+  }
+
+  @if(preguntaActual && !terminado){
+
+    <div class="mb-3">
+      <span class="badge bg-info me-2">{{ categoria }}</span>
+      <span class="badge bg-secondary">{{ dificultad }}</span>
+    </div>
+
+    <p class="text-muted">Pregunta {{ indice + 1 }} de {{ total }}</p>
+
+    <div class="pregunta-container animate-in">
+      <h4 class="mb-4">{{ preguntaActual.enunciado }}</h4>
+
+      <div class="row justify-content-center">
+        @for(opcion of preguntaActual.opciones; track opcion){
+          <div class="col-12 col-md-6">
+            <button class="btn btn-opcion w-100 m-2"
+                    (click)="responder(opcion)">
+              {{ opcion }}
+            </button>
+          </div>
+        }
       </div>
-    }
+    </div>
 
-    @if(pregunta && !loading){
-      <div class="pregunta-container animate-in">
-        <h4 class="mb-4">{{ pregunta.question }}</h4>
+  }
 
-        <div class="row justify-content-center">
-          @for(opcion of opciones; track opcion){
-            <div class="col-12 col-md-6">
-              <button class="btn btn-opcion w-100 m-2"
-                      (click)="verificarRespuesta(opcion)">
-                {{ opcion }}
-              </button>
-            </div>
-          }
-        </div>
-      </div>
-    }
+  @if(terminado){
 
-  } @else {
-
-    <div class="game-over mt-4 p-5 shadow rounded bg-white">
-      <h2 class="text-danger">💀 Game Over</h2>
-      <p class="fs-4">Lograste {{ puntaje }} puntos</p>
+    <div class="game-over mt-4 p-5 shadow rounded" style="background:#1a1a2e">
+      <h2 style="color:#0dcaf0">Partida terminada</h2>
+      <p class="fs-4" style="color:#e0e0e0">Acertaste {{ puntaje }} de {{ total }}</p>
+      <p class="fs-5" style="color:#888">{{ tiempoSeg }} segundos</p>
 
       <button class="btn btn-success btn-lg mt-3"
-              (click)="reiniciarJuego()">
-        Intentar de nuevo
+              (click)="empezar()">
+        Jugar de nuevo
       </button>
     </div>
 
   }
 
 </div>
-
-@if(modalVisible){
-  <div class="modal-backdrop">
-    <div class="modal-box" [ngClass]="modalTipo">
-      <h2>{{ modalMensaje }}</h2>
-      <p>{{ modalSubtitulo }}</p>
-    </div>
-  </div>
-}

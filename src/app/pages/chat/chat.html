@@ -4,23 +4,22 @@
     Chat Global
   </h1>
 
-  <div class="border p-3 mb-3" style="height: 400px; overflow-y: auto;">
+  <div class="border p-3 mb-3 chat-box">
 
     @for(mensaje of mensajes; track mensaje.id){
 
-      <div class="mb-2">
+      <div class="chat-mensaje">
 
-        <strong>
-          {{ mensaje.usuario }}
-        </strong>
+        <div class="chat-contenido">
+          {{ mensaje.mensaje }}
+        </div>
 
-        <br>
-
-        {{ mensaje.mensaje }}
+        <div class="chat-meta">
+          <span class="chat-usuario">{{ mensaje.usuario }}</span>
+          <span class="chat-fecha">{{ mensaje.fecha | date:'dd/MM/yy HH:mm' }}</span>
+        </div>
 
       </div>
-
-      <hr>
 
     }
 
@@ -31,7 +30,8 @@
     <input
       type="text"
       class="form-control me-2"
-      [(ngModel)]="nuevoMensaje">
+      [(ngModel)]="nuevoMensaje"
+      (keydown.enter)="enviarMensaje()">
 
     <button
       class="btn btn-primary"

@@ -2,59 +2,33 @@
 
   <div class="container">
 
-    <a class="navbar-brand">
+    <a class="navbar-brand" routerLink="/">
       Sala de Juegos
     </a>
 
     <div class="navbar-nav">
 
-      <a
-        routerLink="/"
-        class="nav-link"
-      >
-        Home
-      </a>
-
-      <a
-        routerLink="/quien-soy"
-        class="nav-link"
-      >
-        Quién Soy
-      </a>
+      <a routerLink="/" class="nav-link">Home</a>
+      <a routerLink="/quien-soy" class="nav-link">Quién Soy</a>
 
       @if(!usuario){
 
-        <a
-          routerLink="/login"
-          class="nav-link"
-        >
-          Login
-        </a>
-
-        <a
-          routerLink="/register"
-          class="nav-link"
-        >
-          Registro
-        </a>
+        <a routerLink="/login" class="nav-link">Login</a>
+        <a routerLink="/register" class="nav-link">Registro</a>
 
       }
 
       @if(usuario){
 
-        <a
-          routerLink="/juegos"
-          class="nav-link"
-        >
-          Juegos
-        </a>
+        <a routerLink="/juegos" class="nav-link">Juegos</a>
+        <a routerLink="/resultados" class="nav-link">Resultados</a>
+        <a routerLink="/encuesta" class="nav-link">Encuesta</a>
 
-        <button
-          class="btn btn-danger ms-3"
-          (click)="logout()"
-        >
-          Logout
-        </button>
+        @if(['admin@test.com','user1@test.com','user2@test.com'].includes(usuario.email)){
+          <a routerLink="/encuesta-resultados" class="nav-link">Ver Encuestas</a>
+        }
+
+        <button class="btn btn-danger ms-3" (click)="logout()">Logout</button>
 
       }
 
@@ -64,8 +38,6 @@
 
 </nav>
 
-<div class="container mt-4">
-
+<div class="container mt-4 page-transition">
   <router-outlet />
-
 </div>

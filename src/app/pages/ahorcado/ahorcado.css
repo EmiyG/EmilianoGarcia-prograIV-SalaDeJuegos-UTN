@@ -1,31 +1,309 @@
-.modal-backdrop-custom{
+.container {
 
-  position: fixed;
-  top: 0;
-  left: 0;
-
-  width: 100%;
-  height: 100%;
-
-  background: rgba(0,0,0,0.7);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  min-height: 100vh;
 
 }
 
-.modal-box{
+.card-ahorcado {
 
-  background: #111;
-  color: white;
+  max-width: 750px;
+
+  margin: auto;
+
+  background: white;
 
   padding: 30px;
 
-  border-radius: 15px;
+  border-radius: 20px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,.1);
+
+}
+
+/* HORCA */
+
+.horca-container {
+
+  position: relative;
+
+  width: 260px;
+
+  height: 320px;
+
+  margin: auto;
+
+}
+
+/* estructura */
+
+.base {
+
+  position: absolute;
+
+  bottom: 0;
+
+  left: 20px;
+
+  width: 180px;
+
+  height: 10px;
+
+  background: #333;
+
+  border-radius: 10px;
+
+}
+
+.poste {
+
+  position: absolute;
+
+  bottom: 0;
+
+  left: 60px;
+
+  width: 10px;
+
+  height: 260px;
+
+  background: #333;
+
+}
+
+.techo {
+
+  position: absolute;
+
+  top: 50px;
+
+  left: 60px;
+
+  width: 120px;
+
+  height: 10px;
+
+  background: #333;
+
+}
+
+.soga {
+
+  position: absolute;
+
+  top: 50px;
+
+  left: 170px;
+
+  width: 4px;
+
+  height: 40px;
+
+  background: #333;
+
+}
+
+/* muñeco */
+
+.cabeza {
+
+  position: absolute;
+
+  top: 90px;
+
+  left: 145px;
+
+  width: 50px;
+
+  height: 50px;
+
+  border: 5px solid #111;
+
+  border-radius: 50%;
+
+}
+
+.cuerpo {
+
+  position: absolute;
+
+  top: 140px;
+
+  left: 168px;
+
+  width: 5px;
+
+  height: 80px;
+
+  background: #111;
+
+}
+
+.brazo-izq {
+
+  position: absolute;
+
+  top: 155px;
+
+  left: 138px;
+
+  width: 40px;
+
+  height: 5px;
+
+  background: #111;
+
+  transform: rotate(-30deg);
+
+}
+
+.brazo-der {
+
+  position: absolute;
+
+  top: 155px;
+
+  left: 160px;
+
+  width: 40px;
+
+  height: 5px;
+
+  background: #111;
+
+  transform: rotate(30deg);
+
+}
+
+.pierna-izq {
+
+  position: absolute;
+
+  top: 225px;
+
+  left: 145px;
+
+  width: 40px;
+
+  height: 5px;
+
+  background: #111;
+
+  transform: rotate(-45deg);
+
+}
+
+.pierna-der {
+
+  position: absolute;
+
+  top: 225px;
+
+  left: 160px;
+
+  width: 40px;
+
+  height: 5px;
+
+  background: #111;
+
+  transform: rotate(45deg);
+
+}
+
+/* palabra */
+
+.palabra {
+
+  letter-spacing: 10px;
+
+  font-weight: bold;
+
+  font-size: 2rem;
+
+  color: #333;
+
+}
+
+/* letras */
+
+.letras {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+  gap: 10px;
+
+}
+
+.btn-letra {
+
+  width: 50px;
+
+  height: 50px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: #212529;
+
+  color: white;
+
+  font-weight: bold;
+
+  transition: .2s;
+
+}
+
+.btn-letra:hover:not(:disabled) {
+
+  transform: scale(1.08);
+
+  background: #000;
+
+}
+
+.btn-letra:disabled {
+
+  opacity: .4;
+
+  cursor: not-allowed;
+
+}
+
+/* modal */
+
+.modal-backdrop-custom {
+
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(0,0,0,.6);
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  z-index: 999;
+
+}
+
+.modal-box {
+
+  background: rgb(0, 0, 0);
+
+  padding: 30px;
+
+  border-radius: 20px;
 
   text-align: center;
 
-  width: 300px;
+  min-width: 300px;
 
 }

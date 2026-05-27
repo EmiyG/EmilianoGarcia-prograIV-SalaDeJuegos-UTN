@@ -11,38 +11,22 @@ import { Auth } from './services/auth';
 export class App implements OnInit {
 
   authService = inject(Auth);
-
   usuario: any = null;
 
   constructor(private cdr: ChangeDetectorRef) {}
 
   async ngOnInit() {
-
-    const { data } =
-      await this.authService.supabase.auth.getUser();
-
+    const { data } = await this.authService.supabase.auth.getUser();
     this.usuario = data.user;
-
     this.cdr.detectChanges();
 
-    this.authService.supabase.auth.onAuthStateChange(
-
-      (event: any, session: any) => {
-
-        this.usuario = session?.user ?? null;
-
-        this.cdr.detectChanges();
-
-      }
-
-    );
-
+    this.authService.supabase.auth.onAuthStateChange((event: any, session: any) => {
+      this.usuario = session?.user ?? null;
+      this.cdr.markForCheck();
+    });
   }
 
   async logout() {
-
     await this.authService.supabase.auth.signOut();
-
   }
-
 }

@@ -1,0 +1,46 @@
+<div class="game-container">
+
+  <div class="top-bar">
+    <div class="user-info" *ngIf="usuarioEmail">
+      <span>👤 {{ usuarioEmail }}</span>
+    </div>
+  </div>
+
+  <div class="header">
+    <div class="score-box">
+      <span class="score-label">Puntaje</span>
+      <span class="score-value">{{ puntaje }}</span>
+    </div>
+    <div class="score-box">
+      <span class="score-label">Mejor</span>
+      <span class="score-value best">{{ mejorPuntaje }}</span>
+    </div>
+    <div class="score-box">
+      <span class="score-label">Nivel</span>
+      <span class="score-value speed">{{ (151 - velocidad) }}</span>
+    </div>
+  </div>
+
+  <div class="tablero-wrapper">
+    <div class="tablero">
+      <div *ngFor="let _ of [].constructor(totalCeldas); let i = index"
+           class="celda"
+           [class.snake]="esSnake(i)"
+           [class.head]="esCabeza(i)"
+           [class.food]="esComida(i)">
+      </div>
+    </div>
+  </div>
+
+  <div class="controls-hint">⬆⬇⬅➡ Mover &nbsp;·&nbsp; Space reiniciar</div>
+
+  <div *ngIf="gameOver" class="overlay">
+    <div class="mensaje">
+      <h1>¡PERDISTE!</h1>
+      <div class="score-final">{{ puntaje }} pts</div>
+      <p *ngIf="puntaje >= mejorPuntaje && puntaje > 0" class="new-record">🏆 ¡Nuevo Récord! 🏆</p>
+      <button class="btn-play" (click)="reiniciarJuego()">JUGAR DE NUEVO</button>
+    </div>
+  </div>
+
+</div>

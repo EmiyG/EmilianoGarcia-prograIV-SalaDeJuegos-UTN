@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { catchError, of, retry, finalize } from 'rxjs';
-import { supabase } from '../../services/supabase';
+import { PreguntadosApiService, Pregunta } from '../../services/preguntados-api.service';
+import { PreguntadosPartidasService } from '../../services/preguntados-partidas.service';
 
 @Component({
   selector: 'app-preguntados',
@@ -11,119 +10,73 @@ import { supabase } from '../../services/supabase';
   templateUrl: './preguntados.html',
   styleUrl: './preguntados.css'
 })
-export class Preguntados implements OnInit {
+export class Preguntados implements OnInit, OnDestroy {
 
-  pregunta: any = null;
-  opciones: string[] = [];
+  private api = inject(PreguntadosApiService);
+  private partidasService = inject(PreguntadosPartidasService);
+
+  preguntas: Pregunta[] = [];
+  indice = 0;
   puntaje = 0;
+  total = 0;
+  empezado = false;
+  terminado = false;
   loading = false;
-  gameOver = false;
 
-  
-  modalVisible = false;
-  modalMensaje = '';
-  modalSubtitulo = '';
-  modalTipo: 'correcto' | 'incorrecto' | '' = '';
+  categoria = '';
+  dificultad = '';
+  preguntaActual: Pregunta | null = null;
 
-  constructor(private http: HttpClient) {}
+  private inicio = 0;
+  tiempoSeg = 0;
+  private timeoutId: any;
 
-  ngOnInit(): void {
-    this.obtenerPregunta();
+  ngOnInit() {}
+
+  ngOnDestroy() {
+    if (this.timeoutId) clearTimeout(this.timeoutId);
   }
 
-  decodeHtml(html: string) {
-    const txt = document.createElement('textarea');
-    txt.innerHTML = html;
-    return txt.value;
-  }
-
-  obtenerPregunta() {
-    if (this.loading) return;
+  empezar() {
+    this.empezado = true;
     this.loading = true;
-
-    this.http.get<any>('https://opentdb.com/api.php?amount=1&type=multiple')
-      .pipe(
-        retry(1),
-        catchError(err => {
-          console.error('Error API:', err);
-          return of(null);
-        }),
-        finalize(() => this.loading = false)
-      )
-      .subscribe((data) => {
-        if (!data?.results?.length) return;
-
-        const res = data.results[0];
-        this.pregunta = {
-          ...res,
-          question: this.decodeHtml(res.question),
-          correct_answer: this.decodeHtml(res.correct_answer),
-          incorrect_answers: res.incorrect_answers.map((a: string) => this.decodeHtml(a))
-        };
-
-        this.opciones = [
-          ...this.pregunta.incorrect_answers,
-          this.pregunta.correct_answer
-        ].sort(() => Math.random() - 0.5);
-      });
-  }
-
-  verificarRespuesta(opcion: string) {
-    if (!this.pregunta || this.modalVisible || this.loading) return;
-
-    const esCorrecta = opcion === this.pregunta.correct_answer;
-
-    if (esCorrecta) {
-      this.puntaje++;
-      this.mostrarModal('¡Correcto! 🔥', 'Sumaste un punto', 'correcto');
-      
-     
-      this.pregunta = null;
-      this.obtenerPregunta();
-    } else {
-      this.gameOver = true;
-      this.mostrarModal('Incorrecto 💀', `Era: ${this.pregunta.correct_answer}`, 'incorrecto');
-      
-      
-      this.guardarResultado(this.puntaje);
-    }
-  }
-
-  mostrarModal(titulo: string, sub: string, tipo: 'correcto' | 'incorrecto') {
-    this.modalMensaje = titulo;
-    this.modalSubtitulo = sub;
-    this.modalTipo = tipo;
-    this.modalVisible = true;
-
-    setTimeout(() => {
-      this.modalVisible = false;
-    }, 1200); 
-  }
-
-  async guardarResultado(puntajeFinal: number) {
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
-
-      const { error } = await supabase
-        .from('resultados')
-        .insert([{
-          usuario: user.email,
-          juego: 'preguntados',
-          puntaje: puntajeFinal,
-          fecha: new Date()
-        }]);
-
-      if (error) console.error('Error Supabase:', error.message);
-    } catch (err) {
-      console.error('Error inesperado:', err);
-    }
-  }
-
-  reiniciarJuego() {
+    this.preguntas = this.api.generarPreguntas();
+    this.total = this.preguntas.length;
+    this.indice = 0;
     this.puntaje = 0;
-    this.gameOver = false;
-    this.pregunta = null;
-    this.obtenerPregunta();
+    this.terminado = false;
+    this.inicio = Date.now();
+    this.mostrarPregunta();
+    this.loading = false;
+  }
+
+  mostrarPregunta() {
+    if (this.indice >= this.preguntas.length) {
+      this.terminar();
+      return;
+    }
+    this.preguntaActual = this.preguntas[this.indice];
+    this.categoria = this.preguntaActual.categoria;
+    this.dificultad = this.preguntaActual.dificultad;
+  }
+
+  responder(opcion: string) {
+    if (!this.preguntaActual || this.loading) return;
+    if (opcion === this.preguntaActual.correcta) {
+      this.puntaje++;
+    }
+    this.indice++;
+    this.mostrarPregunta();
+  }
+
+  terminar() {
+    this.terminado = true;
+    this.preguntaActual = null;
+    this.tiempoSeg = Math.floor((Date.now() - this.inicio) / 1000);
+    this.partidasService.guardar({
+      total: this.total,
+      aciertos: this.puntaje,
+      tiempoSeg: this.tiempoSeg
+    });
   }
 }
