@@ -1,0 +1,86 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card bg-dark text-white shadow rounded-4">
+        <div class="card-body p-4">
+          <h2 class="text-center fw-bold mb-4">📝 Encuesta de Satisfacción</h2>
+
+          @if(errorMsg){
+            <div class="alert alert-danger">{{ errorMsg }}</div>
+          }
+          @if(successMsg){
+            <div class="alert alert-success">{{ successMsg }}</div>
+          }
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Nombre *</label>
+              <input type="text" class="form-control bg-secondary text-white border-0" [(ngModel)]="nombre" placeholder="Tu nombre">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Apellido *</label>
+              <input type="text" class="form-control bg-secondary text-white border-0" [(ngModel)]="apellido" placeholder="Tu apellido">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Edad *</label>
+              <input type="number" class="form-control bg-secondary text-white border-0" [(ngModel)]="edad" placeholder="18-99" min="18" max="99">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Teléfono *</label>
+              <input type="text" class="form-control bg-secondary text-white border-0" [(ngModel)]="telefono" placeholder="Solo números, máx 10 dígitos" maxlength="10">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Juego favorito *</label>
+            <select class="form-select bg-secondary text-white border-0" [(ngModel)]="juegoFavorito">
+              <option value="">Seleccioná un juego...</option>
+              @for(op of opcionesJuego; track op){
+                <option [value]="op">{{ op }}</option>
+              }
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label d-block">¿Recomendarías esta sala de juegos? *</label>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" [(ngModel)]="recomendaria" value="si" id="rec-si">
+              <label class="form-check-label" for="rec-si">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" [(ngModel)]="recomendaria" value="no" id="rec-no">
+              <label class="form-check-label" for="rec-no">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" [(ngModel)]="recomendaria" value="tal-vez" id="rec-talvez">
+              <label class="form-check-label" for="rec-talvez">Tal vez</label>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label d-block">¿Qué mejoras te gustaría ver? * (seleccioná al menos una)</label>
+            @for(op of opcionesMejora; track op){
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" [checked]="mejoras.includes(op)" (change)="toggleMejora(op)" [id]="'mejora-' + op">
+                <label class="form-check-label" [for]="'mejora-' + op">{{ op }}</label>
+              </div>
+            }
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label">Comentario adicional *</label>
+            <textarea class="form-control bg-secondary text-white border-0" rows="3" [(ngModel)]="comentario" placeholder="Dejanos tu opinión..."></textarea>
+          </div>
+
+          <button class="btn btn-primary w-100 fw-bold btn-lg" (click)="guardar()" [disabled]="saving">
+            @if(saving){ Enviando... }@else{ Enviar Encuesta }
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<div class="container mt-4">
+  <h1 class="text-center fw-bold text-white mb-4">Resultados</h1>
+
+  @if(loading){
+    <div class="text-center mt-5">
+      <div class="spinner-border text-primary" role="status"></div>
+      <p class="mt-2 text-white">Cargando resultados...</p>
+    </div>
+  }
+
+  @if(error){
+    <div class="alert alert-danger text-center">Error al cargar resultados</div>
+  }
+
+  <div class="row">
+    @for(juego of juegos; track juego){
+      <div class="col-12 col-lg-6 mb-4">
+        <div class="card bg-dark text-white shadow rounded-4 h-100">
+          <div class="card-header text-center fw-bold fs-5" [class.bg-warning]="juego === 'snake'" [class.bg-primary]="juego === 'mayor-menor'" [class.bg-danger]="juego === 'ahorcado'" [class.bg-success]="juego === 'preguntados'">
+            {{ nombreJuego(juego) }}
+          </div>
+          <div class="card-body p-0">
+            <table class="table table-dark table-striped mb-0">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Usuario</th>
+                  <th class="text-end">Puntaje</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for(r of resultados[juego]; track r; let i = $index){
+                  <tr>
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ r.usuario }}</td>
+                    <td class="text-end fw-bold">{{ r.puntaje }}</td>
+                  </tr>
+                }
+                @if(resultados[juego].length === 0){
+                  <tr><td colspan="3" class="text-center text-muted">Sin resultados</td></tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

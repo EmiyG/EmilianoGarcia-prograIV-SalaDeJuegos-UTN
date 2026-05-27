@@ -34,7 +34,6 @@ export class MayorMenor implements OnInit {
     this.mensajeModal = msg;
     this.mostrarModal = true;
 
-    // auto cerrar (sin botón, como pediste)
     setTimeout(() => {
       this.mostrarModal = false;
     }, 1500);
@@ -64,7 +63,6 @@ export class MayorMenor implements OnInit {
     const nuevoPalo =
       this.palos[Math.floor(Math.random() * this.palos.length)];
 
-    // 🔥 SIEMPRE se evalúa correctamente (arreglado bug lógico)
     const correcto =
       (eleccion === 'mayor' && siguiente > this.cartaActual) ||
       (eleccion === 'menor' && siguiente < this.cartaActual);

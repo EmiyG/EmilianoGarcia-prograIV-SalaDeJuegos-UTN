@@ -1,11 +1,3 @@
-.container {
-  max-width: 600px;
-  background: #000000;
-  padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-}
-
 .btn-opcion {
   width: 100%;
   padding: 15px;
@@ -24,36 +16,11 @@
   color: white;
 }
 
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(5px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+.game-over {
+  animation: fadeIn 0.3s ease-out;
 }
 
-.modal-box {
-  background: white;
-  padding: 40px;
-  border-radius: 20px;
-  text-align: center;
-  min-width: 320px;
-  animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.modal-box h2 { font-size: 2rem; margin-bottom: 10px; }
-.modal-box p { font-size: 1.2rem; color: #666; }
-
-.correcto { border-top: 10px solid #2ecc71; }
-.correcto h2 { color: #2ecc71; }
-
-.incorrecto { border-top: 10px solid #e74c3c; }
-.incorrecto h2 { color: #e74c3c; }
-
-@keyframes pop {
-  from { transform: scale(0.5); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

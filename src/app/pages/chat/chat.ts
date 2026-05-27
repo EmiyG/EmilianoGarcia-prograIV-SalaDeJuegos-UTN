@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { supabase } from '../../services/supabase';
@@ -14,9 +14,12 @@ export class Chat implements OnInit, OnDestroy {
   mensajes: any[] = [];
   nuevoMensaje: string = '';
 
+  constructor(private cdr: ChangeDetectorRef) {}
+
   async ngOnInit() {
 
     await this.cargarMensajes();
+    this.cdr.detectChanges();
 
     const channel = supabase.channel('chat-global');
 
@@ -33,6 +36,7 @@ export class Chat implements OnInit, OnDestroy {
           ...this.mensajes,
           payload.new
         ];
+        this.cdr.detectChanges();
 
       }
     );

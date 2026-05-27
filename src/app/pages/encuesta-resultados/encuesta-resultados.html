@@ -1,0 +1,51 @@
+<div class="container mt-4">
+  <h1 class="text-center fw-bold text-white mb-4"> Resultados de Encuestas</h1>
+
+  @if(loading){
+    <div class="text-center mt-5">
+      <div class="spinner-border text-primary" role="status"></div>
+      <p class="mt-2 text-white">Cargando...</p>
+    </div>
+  }
+
+  @if(!loading && resultados.length === 0){
+    <p class="text-center text-muted">No hay encuestas registradas.</p>
+  }
+
+  @if(errorMsg){
+    <div class="alert alert-danger">{{ errorMsg }}</div>
+  }
+
+  <div class="table-responsive">
+    <table class="table table-dark table-striped">
+      <thead>
+        <tr>
+          <th>Usuario</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Edad</th>
+          <th>Teléfono</th>
+          <th>Juego Favorito</th>
+          <th>Recomendaría</th>
+          <th>Mejoras</th>
+          <th>Comentario</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(r of resultados; track r.id){
+          <tr>
+            <td>{{ r.usuario }}</td>
+            <td>{{ r.nombre }}</td>
+            <td>{{ r.apellido }}</td>
+            <td>{{ r.edad }}</td>
+            <td>{{ r.telefono }}</td>
+            <td>{{ r.juego_favorito }}</td>
+            <td>{{ r.recomendaria }}</td>
+            <td>{{ r.mejoras?.join(', ') }}</td>
+            <td>{{ r.comentario }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
